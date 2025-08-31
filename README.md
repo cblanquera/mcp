@@ -1,6 +1,6 @@
-# Stackpress Context Provider
+# Chris MCP
 
-Experimental MCP server implementation to provide Stackpress context to AI utilities like cline.
+A context provider on how I program. Basically the AI version of me for AI utilities like cline.
 
 ## 1. Install
 
@@ -13,10 +13,10 @@ The following sections describe several ways to install this MCP.
 Run the following commands in the same folder your other MCP servers are.
 
 ```bash
-$ mkdir stackpress-mcp
-$ cd stackpress-mcp
-$ npx --y @stackpress/mcp fetch --output ./data
-$ npx --y @stackpress/mcp verify --output ./data
+$ mkdir chris-mcp
+$ cd chris-mcp
+$ npx --y chris-mcp fetch --output ./data
+$ npx --y chris-mcp verify --output ./data
 $ pwd
 ```
 
@@ -29,11 +29,11 @@ Add the following configuration to your `claude_desktop_config.json` where `[pwd
 ```json
 {
   "mcpServers": {
-    "stackpress-context": {
+    "chris-context": {
       "command": "npx",
       "args": [ 
         "-y", 
-        "@stackpress/mcp", 
+        "chris-mcp", 
         "serve", 
         "--input", 
         "[pwd]/data" 
@@ -49,11 +49,11 @@ Add the following configuration to your `cline_mcp_settings.json` where `[pwd]` 
 
 ```json
 {
-  "name": "stackpress-context",
+  "name": "chris-context",
   "command": "npx",
   "args": [ 
     "-y", 
-    "@stackpress/mcp", 
+    "chris-mcp", 
     "serve", 
     "--input", 
     "[pwd]/data" 
@@ -66,8 +66,8 @@ Add the following configuration to your `cline_mcp_settings.json` where `[pwd]` 
 Run the following commands in the same folder your other MCP servers are.
 
 ```bash
-$ git clone https://github.com/stackpress/mcp.git stackpress-mcp
-$ cd stackpress-mcp
+$ git clone https://github.com/cblanquera/mcp.git chris-mcp
+$ cd chris-mcp
 $ npm i
 $ npm run build
 $ npm run fetch --output ./data
@@ -84,7 +84,7 @@ Add the following configuration to your `claude_desktop_config.json`.
 ```json
 {
   "mcpServers": {
-    "stackpress-context": {
+    "chris-context": {
       "command": "node",
       "args": [ 
         "[pwd]/dist/scripts/serve.js", 
@@ -102,7 +102,7 @@ Add the following configuration to your `cline_mcp_settings.json`.
 
 ```json
 {
-  "name": "stackpress-context",
+  "name": "chris-context",
   "command": "node",
   "args": [ 
     "[pwd]/dist/scripts/serve.js", 
@@ -117,9 +117,9 @@ Add the following configuration to your `cline_mcp_settings.json`.
  1. Copy and paste the following prompt.
 
 ```
-Set up the MCP server from https://github.com/stackpress/mcp while adhering to these MCP server installation rules:
+Set up the MCP server from https://github.com/cblanquera/mcp while adhering to these MCP server installation rules:
 - Start by loading the MCP documentation.
-- Use "github.com/stackpress/mcp" as the server name in cline_mcp_settings.json.
+- Use "github.com/cblanquera/mcp" as the server name in cline_mcp_settings.json.
 - Create the directory for the new MCP server before starting installation.
 - Make sure you read the user's existing cline_mcp_settings.json file before editing it with this new mcp, to not overwrite any existing servers.
 - Use commands aligned with the user's shell and operating system best practices.
@@ -146,12 +146,12 @@ $ node [pwd]/dist/scripts/serve.js --input [pwd]/.data
 If you installed via `npx`, you can start the server like the following.
 
 ```bash
-$ npx @stackpress/mcp serve --input [pwd]/.data
+$ npx chris-mcp serve --input [pwd]/.data
 ```
 
 ## 2.1. Fetching Updated Context
 
-You can manually fetch and verify the Stackpress context like the following.
+You can manually fetch and verify the context like the following.
 
 ```bash
 $ npm run fetch --output [pwd]/.data
@@ -168,8 +168,8 @@ $ node [pwd]/dist/scripts/verify.js --output [pwd]/.data
 If you installed via `npx`, you can start the server like the following.
 
 ```bash
-$ npx @stackpress/mcp fetch --output [pwd]/.data
-$ npx @stackpress/mcp verify --output [pwd]/.data
+$ npx chris-mcp fetch --output [pwd]/.data
+$ npx chris-mcp verify --output [pwd]/.data
 ```
 
 ## 2.2. Upgrading Search Model
@@ -178,12 +178,12 @@ The MCP uses `Xenova/all-MiniLM-L6-v2` locally to determine the best search quer
 
 ```json
 {
-  "name": "stackpress-context",
+  "name": "chris-context",
   "command": "node",
   "command": "npx",
   "args": [ 
     "-y", 
-    "@stackpress/mcp", 
+    "chris-mcp", 
     "serve", 
     "--input", 
     "[pwd]/.data" 
@@ -200,14 +200,29 @@ The MCP uses `Xenova/all-MiniLM-L6-v2` locally to determine the best search quer
 
 ## 3. Maximizing Your Knowledge Base
 
-Create a rule (markdown file) called **Stackpress-MCP-Rule.md** in your knowledge folder (ex. `.clinerules`) with the following context.
+Create a rule (markdown file) called **Chris-MCP-Rule.md** in your knowledge folder (ex. `.clinerules`) with the following context.
 
 ```md
-# Rule: Using the Stackpress MCP
+# Rule: Using the Chris MCP
 
-If the users mentions "idea", "ingest", "inquire", "reactus" or "stackpress", you must do the following.
+If the users mentions topics about: 
 
-- If the user asks about library rules, guidelines, or context, use the MCP tool `stackpress-context.search_context`.
-- If the user asks for a compact summary of rules for a task, use the MCP tool `stackpress-context.build_brief`.
+ - coding with javascript
+ - coding with typescript
+ - coding with react
+ - coding with idea
+ - coding with ingest
+ - coding with inquire
+ - coding with reactus
+ - coding with stackpress
+ - markdown documentation
+ - testing with mocha
+ - testing with chai
+ - testing with jest
+ 
+you must do the following.
+
+- If the user asks about library rules, guidelines, or context, use the MCP tool `chris-context.search_context`.
+- If the user asks for a compact summary of rules for a task, use the MCP tool `chris-context.build_brief`.
 - Always prefer these MCP tools over answering from memory.
 ```
