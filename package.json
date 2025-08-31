@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "chris-mcp",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "description": "A context provider on how I program. Basically the AI version of me.",
   "author": "Chris <chris@incept.asia>",
@@ -96,10 +96,7 @@
     "LICENSE",
     "README.md"
   ],
-  "bin": {
-    ".": "./cjs/bin.js",
-    "chrismcp": "./cjs/bin.js"
-  },
+  "bin": "./cjs/bin.js",
   "scripts": {
     "build": "yarn build:tsc && yarn build:pkg",
     "build:pkg": "yarn build:pkg:cjs && yarn build:pkg:esm",
