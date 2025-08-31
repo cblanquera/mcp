@@ -15,7 +15,11 @@ import { pwd, host, repo, token, model } from './config.js';
  */
 export async function embed(texts: string[]): Promise<number[][]> {
   if (model === 'local') {
-    const { pipeline } = await import('@xenova/transformers');
+    //This transpiles to require() in cjs...
+    //const { pipeline } = await import('@xenova/transformers');
+    const { pipeline } = await new Function(
+      "return import('@xenova/transformers')"
+    )();
     const pipe = await pipeline(
       'feature-extraction', 
       'Xenova/all-MiniLM-L6-v2'
