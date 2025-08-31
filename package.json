@@ -1,0 +1,52 @@
+{
+  "name": "chris-mcp",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "A context provider on how I program. Basically the AI version of me.",
+  "author": "Chris <chris@incept.asia>",
+  "homepage": "https://github.com/cblanquera/mcp",
+  "bugs": "https://github.com/cblanquera/mcp/issues",
+  "repository": "cblanquera/mcp",
+  "keywords": [
+    "ts",
+    "typescript",
+    "cjs",
+    "mcp"
+  ],
+  "files": [
+    "bin.js",
+    "context-pack.yaml",
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "bin": "bin.js",
+  "scripts": {
+    "build": "tsc",
+    "fetch": "node dist/scripts/fetch.js",
+    "verify": "node dist/scripts/verify.js",
+    "start": "node dist/scripts/serve.js",
+    "dev": "dotenv -e .env -- ts-node src/scripts/serve.ts",
+    "dev:fetch": "dotenv -e .env -- ts-node src/scripts/fetch.ts",
+    "dev:verify": "dotenv -e .env -- ts-node src/scripts/verify.ts",
+    "ingest": "dotenv -e .env -- ts-node src/scripts/ingest.ts",
+    "zip": "dotenv -e .env -- ts-node src/scripts/zip.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.17.4",
+    "@stackpress/lib": "0.6.2",
+    "@xenova/transformers": "2.17.2",
+    "gray-matter": "4.0.3",
+    "js-yaml": "4.1.0",
+    "remark-frontmatter": "5.0.0",
+    "remark-parse": "11.0.0",
+    "unified": "11.0.5"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "4.0.9",
+    "@types/node": "24.3.0",
+    "dotenv-cli": "10.0.0",
+    "ts-node": "10.9.2",
+    "typescript": "5.9.2"
+  }
+}

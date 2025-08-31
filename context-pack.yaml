@@ -1,0 +1,6 @@
+pack: "Chris Context Pack"
+version: 0.0.1
+order: [ coding, documenting, testing ]
+budgets:
+  max_chunk_tokens: 400
+  overlap_tokens: 32
