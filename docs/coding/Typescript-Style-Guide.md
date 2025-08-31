@@ -110,7 +110,7 @@ import fs from 'fs';
 
 ## 3. Exports
 
-Export blocks should always end with a semicolon (even if it is a function or class).
+Export blocks must always end with a semicolon (even if it is a function or class).
 
 ```ts
 //✅ Good

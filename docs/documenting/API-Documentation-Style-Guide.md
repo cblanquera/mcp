@@ -1,6 +1,6 @@
 # API Documentation Style Guide
 
-The following guidelines should be used when creating an API document. Before reading this, please see the [Documentation Guidelines](./[Documentation-Guidelines.md)
+The following guidelines must be used when creating an API document. Before reading this, please see the [Documentation Guidelines](./[Documentation-Guidelines.md)
 
 ## 1. Documentation Structure
 

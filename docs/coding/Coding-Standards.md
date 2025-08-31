@@ -9,7 +9,7 @@ Before contributing to anyone's code, be sure to study how the existing project 
 
 Code should be written like a book. A book has pages and each line of each page has a common max length. Imagine a child's eye moving from left to right when reading a book. As that child reads while growing up, their eyes move a lot less. Eventually a person moves from letter to letter, to word by word, to line by line, and some can even do page by page *(speed reading)*. This is because as a person reads more and more they develop their sight peripherals, but there is a limit to how far peripherals can reach *(less than 180 degrees)*. Around when an individual's sight peripherals reach their limit is when the eyes need to move. Eyes moving constantly without rest can cause eye stress. Unlike a book, there is no max length a line of code could be and contributes to eye stress for everyone reading code not having a standard.
 
-> Every line of code should not exceed **80 characters**.
+> Every line of code must not exceed **80 characters**.
 
 If you are using VSCode 
  1. Go to File > Preferences > Settings.
@@ -151,7 +151,7 @@ fooBar();
 fooBar()
 ```
 
-Conditional blocks should not end with semicolons.
+Conditional blocks must not end with semicolons.
 
 ```js
 //✅ Good
@@ -160,7 +160,7 @@ if (true) {}
 if (true) {};
 ```
 
-`while` and `for` iteration blocks should not end with semicolons. `do while` blocks should end with semicolon.
+`while` and `for` iteration blocks must not end with semicolons. `do while` blocks must end with semicolon.
 
 ```js
 //✅ Good
@@ -179,7 +179,7 @@ for (;;) {}
 for (;;) {};
 ```
 
-Function declarations should not have semicolons.
+Function declarations must not have semicolons.
 
 ```js
 //✅ Good
@@ -188,7 +188,7 @@ function fooBar() {}
 function fooBar() {};
 ```
 
-All exported variables should have semicolons.
+All exported variables must have semicolons.
 
 ```js
 //✅ Good
@@ -270,7 +270,7 @@ const host = process.env.API_HOST;
 
 ## 6. Spaces Between Data Block
 
-A data block are non scalar data structure like arrays and objects. Data blocks should have a space in between the opening and closing where values are present. Consider the following examples.
+A data block are non scalar data structure like arrays and objects. Data blocks must have a space in between the opening and closing where values are present. Consider the following examples.
 
 ```js
 //✅ Good

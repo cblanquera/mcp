@@ -1,6 +1,6 @@
 # Title
 
-Always add a description after a title. The title description should summarize what this documentation is about *(use the main subjects as a guide)*. Use between 1-3 paragraphs only. More paragraphs should be split into main subjects. A document should have at least 2 main subjects.
+Always add a description after a title. The title description must summarize what the documentation is about *(use the main subjects as a guide)*. Use between 1-3 paragraphs only. More paragraphs should be split into main subjects. A document must have at least 2 main subjects.
 
 ## 1. Main Subject 1
 
@@ -28,7 +28,7 @@ In any main subject or supporting point, you can add number lists like the follo
 
 Always add a description after every supporting point. If you cannot determine a proper description, then summarize or paraphrase or tl;dr the supporting points in this section. If this section has no supporting points, then summarize or paraphrase or tl;dr the content in this section you are about to describe.
 
-A document block is a paragraph, bullet list, number list, code, alert, etc.; any formatted group of text that are meant to be together. Document blocks should be separated by an empty line. a properly executed document block looks like the following *(and notice the empty line)*.
+A document block is a paragraph, bullet list, number list, code, alert, etc.; any formatted group of text that are meant to be together. Document blocks must be separated by an empty line. a properly executed document block looks like the following *(and notice the empty line)*.
 
 ```
 If code blocks contains code please add the language in the meta area of the code block so it can be colorized.
@@ -46,11 +46,11 @@ Make sure there is at least 2 supporting points when adding a supporting points 
 
 Make sure there is at least 2 supporting points when adding a supporting points to a main subject. If you cannot determine a second point, then you should move the content of the first point to the parent main topic.
 
-Main subjects can also be referred to as "main topics". Supporting points can also be referred as "sub-topics" or "sub topics" or "subtopics". All topic headers should start with an outline ID that is determined using the outline numbering system like this document to it can be easily referenced by those who are reading it. Make sure to end every outline ID with a period *(.)*.
+Main subjects can also be referred to as "main topics". Supporting points can also be referred as "sub-topics" or "sub topics" or "subtopics". All topic headers must start with an outline ID that is determined using the outline numbering system like this document so it can be easily referenced by those who are reading it. An outline ID must consist of only numbers (no letters) separated by dots *(.)*. Make sure to end every outline ID with a period *(.)*.
 
 #### 1.2.1. Supporting Point 1.2.1. of Supporting Point 1.2.
 
-Labels like "Example" and "Usage" are not topics. They should just be bolded *(double star)*. Do not make labels headers *(prefixed by hash/pound)*. 
+Labels like "Example" and "Usage" are not topics. They must just be bolded *(double star)*. Do not make labels headers *(prefixed by hash/pound)*. 
 
 **Examples**
 
@@ -60,7 +60,7 @@ Labels like "Example" and "Usage" are not topics. They should just be bolded *(d
 ❌ No empty lines between headers and document blocks
 ```
 
-> Labels should also be separated by an empty line.
+> Labels must also be separated by an empty line.
 
 Try not to go passed 3 levels of topics. For example `1.2.1.1.` implies the 4th topic level. When thinking about creating a fourth topic level consider simply bolding *(like a label)* instead.
 
@@ -80,7 +80,7 @@ Make sure there is at least 2 main subjects per document. If you cannot determin
  - Use capital letters *(A, B, C)* for supporting points.
  - Use numbers again *(1, 2, 3)* for sub-supporting points.
  - Do not go beyond 3 topic levels *(1.2.2. is okay, 1.2.1.1. is too deep)*.
- - Always apply the “at least two” rule:
+ - Always apply the "at least two" rule:
    - If there’s a 1, there must be a 2.
    - If there’s an A, there must be a B.
    - If there’s a bullet or number list, it must have at least 2 items.
@@ -94,7 +94,7 @@ Make sure there is at least 2 main subjects per document. If you cannot determin
    - Always at least 2 items.
  - Document blocks *(paragraphs, lists, code, etc.)* must be separated by one empty line.
  - Code blocks must declare a language *(js, bash, json, etc.)*.
- - Labels like “Example” or “Usage” should be bold text, not headers.
+ - Labels like "Example" or "Usage" must be bold text, not headers.
  - Feel free to use bullets or number lists in the conclusion
 
 Lastly, do not to use the terminology discussed in this document (main subjects, supporting points, topics, etc.) to describe areas in the actual documentation. Do not describe how the documentation was structured using these guidelines.
