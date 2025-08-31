@@ -1,4 +1,4 @@
-import terminal from '../terminal';
+import terminal from '../terminal.js';
 
 const argv = [
   'fetch',

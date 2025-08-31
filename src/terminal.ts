@@ -3,10 +3,10 @@ import path from 'node:path';
 //modules
 import { Terminal } from '@stackpress/lib';
 //src
-import { cwd, build } from './config';
-import Store from './store';
-import server from './server';
-import { getContextPack } from './helpers';
+import { cwd, build } from './config.js';
+import Store from './store.js';
+import server from './server.js';
+import { getContextPack } from './helpers.js';
 
 /**
  * Returns a terminal interface

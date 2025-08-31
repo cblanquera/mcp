@@ -9,8 +9,8 @@ import crypto from 'node:crypto';
 //modules
 import { Terminal } from '@stackpress/lib';
 //src
-import { model, build } from '../config';
-import { getContextPack } from '../helpers';
+import { model, build } from '../config.js';
+import { getContextPack } from '../helpers.js';
 
 type FileRec = {
   // e.g., lib

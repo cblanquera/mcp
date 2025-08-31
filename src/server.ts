@@ -4,15 +4,15 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 
 // src
-import Store from './store';
-import { embed, getContextPack } from './helpers';
+import Store from './store.js';
+import { embed, getContextPack } from './helpers.js';
 
 export const pack = getContextPack();
 
 //-------------------------------------------------------------------//
 // Zod shapes (ZodRawShape)
 
-const searchContextShape = {
+export const searchContextShape = {
   query: z.string(),
   repo: z.string().optional(),
   section: z.string().optional(),
@@ -20,15 +20,15 @@ const searchContextShape = {
   k: z.number().int().positive().default(6)
 };
 
-const getRuleShape = {
+export const getRuleShape = {
   id: z.string(),
 };
 
-const dependencyGraphShape = {
+export const dependencyGraphShape = {
   repo: z.string().optional(),
 };
 
-const buildBriefShape = {
+export const buildBriefShape = {
   task: z.string(),
   repos: z.array(z.string()),
   tokens: z.number().int().positive().default(6000)

@@ -1,6 +1,7 @@
 {
+  "type": "module",
   "name": "chris-mcp",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "description": "A context provider on how I program. Basically the AI version of me.",
   "author": "Chris <chris@incept.asia>",
@@ -13,16 +14,100 @@
     "cjs",
     "mcp"
   ],
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "types": "./cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./cjs/index.js",
+      "import": "./esm/index.js"
+    },
+    "./bin": {
+      "require": "./cjs/bin.js",
+      "import": "./esm/bin.js"
+    },
+    "./config": {
+      "require": "./cjs/config.js",
+      "import": "./esm/config.js"
+    },
+    "./helpers": {
+      "require": "./cjs/helpers.js",
+      "import": "./esm/helpers.js"
+    },
+    "./server": {
+      "require": "./cjs/server.js",
+      "import": "./esm/server.js"
+    },
+    "./store": {
+      "require": "./cjs/store.js",
+      "import": "./esm/store.js"
+    },
+    "./terminal": {
+      "require": "./cjs/terminal.js",
+      "import": "./esm/terminal.js"
+    },
+    "./types": {
+      "require": "./cjs/types.js",
+      "import": "./esm/types.js"
+    },
+    "./scripts/fetch": {
+      "require": "./cjs/scripts/fetch.js",
+      "import": "./esm/scripts/fetch.js"
+    },
+    "./scripts/ingest": {
+      "require": "./cjs/scripts/ingest.js",
+      "import": "./esm/scripts/ingest.js"
+    },
+    "./scripts/serve": {
+      "require": "./cjs/scripts/serve.js",
+      "import": "./esm/scripts/serve.js"
+    },
+    "./scripts/verify": {
+      "require": "./cjs/scripts/verify.js",
+      "import": "./esm/scripts/verify.js"
+    },
+    "./scripts/zip": {
+      "require": "./cjs/scripts/zip.js",
+      "import": "./esm/scripts/zip.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "index": [ "./cjs/index.d.ts" ],
+      "bin": [ "./cjs/bin.d.ts" ],
+      "config": [ "./cjs/config.d.ts" ],
+      "helpers": [ "./cjs/helpers.d.ts" ],
+      "server": [ "./cjs/server.d.ts" ],
+      "store": [ "./cjs/store.d.ts" ],
+      "terminal": [ "./cjs/terminal.d.ts" ],
+      "types": [ "./cjs/types.d.ts" ],
+      "scripts/fetch": [ "./cjs/scripts/fetch.d.ts" ],
+      "scripts/ingest": [ "./cjs/scripts/ingest.d.ts" ],
+      "scripts/serve": [ "./cjs/scripts/serve.d.ts" ],
+      "scripts/verify": [ "./cjs/scripts/verify.d.ts" ],
+      "scripts/zip": [ "./cjs/scripts/zip.d.ts" ]
+    }
+  },
   "files": [
     "bin.js",
+    "cjs",
     "context-pack.yaml",
-    "dist",
+    "esm",
     "LICENSE",
     "README.md"
   ],
-  "bin": "bin.js",
+  "bin": {
+    ".": "./cjs/bin.js",
+    "chrismcp": "./cjs/bin.js"
+  },
   "scripts": {
-    "build": "tsc",
+    "build": "yarn build:tsc && yarn build:pkg",
+    "build:pkg": "yarn build:pkg:cjs && yarn build:pkg:esm",
+    "build:pkg:cjs": "echo '{\"type\": \"commonjs\"}' > cjs/package.json",
+    "build:pkg:esm": "echo '{\"type\": \"module\"}' > esm/package.json",
+    "build:tsc": "yarn build:tsc:cjs && yarn build:tsc:esm",
+    "build:tsc:cjs": "tsc -p ./tsconfig.cjs.json",
+    "build:tsc:esm": "tsc -p ./tsconfig.esm.json",
     "fetch": "node dist/scripts/fetch.js",
     "verify": "node dist/scripts/verify.js",
     "start": "node dist/scripts/serve.js",

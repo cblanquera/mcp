@@ -4,10 +4,10 @@ import path from 'node:path';
 //modules
 import matter from 'gray-matter';
 //src
-import type { Chunk, RawChunk } from '../types';
-import Store from '../store';
-import { pwd, build } from '../config';
-import { embed, getContextPack } from '../helpers';
+import type { Chunk, RawChunk } from '../types.js';
+import Store from '../store.js';
+import { pwd, build } from '../config.js';
+import { embed, getContextPack } from '../helpers.js';
 
 const RULE_RE = /\b(MUST NOT|MUST|SHOULD)\b/;
 

@@ -15,7 +15,7 @@ export const build = path.join(cwd, process.env.BUILD_DIR || '.build');
 //Used for releasing and fetching:
 
 //repository url
-export const repo = process.env.GITHUB_REPO || 'https://github.com/stackpress/mcp';
+export const repo = process.env.GITHUB_REPO || 'https://github.com/cblanquera/mcp';
 
 //Used for ingesting and serving:
 

@@ -7,8 +7,8 @@ import stream from 'node:stream';
 //modules
 import yaml from 'js-yaml';
 //src
-import type { Pack } from './types';
-import { pwd, host, repo, token, model } from './config';
+import type { Pack } from './types.js';
+import { pwd, host, repo, token, model } from './config.js';
 
 /**
  * Generates embeddings for an array of input texts using a remote API.

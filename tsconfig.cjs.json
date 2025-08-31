@@ -1,0 +1,10 @@
+{
+  "extends": "@stackpress/lib/tsconfig/cjs",
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "outDir": "cjs/"
+  },
+  "include": [ "src" ],
+  "exclude": [ "esm", "cjs", "node_modules", "tests" ]
+}
