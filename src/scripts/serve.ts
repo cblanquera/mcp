@@ -1,3 +1,4 @@
+import '../polyfills.js';
 import terminal from '../terminal.js';
 
 const argv = [

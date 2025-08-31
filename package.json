@@ -1,7 +1,6 @@
 {
-  "type": "module",
   "name": "chris-mcp",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "description": "A context provider on how I program. Basically the AI version of me.",
   "author": "Chris <chris@incept.asia>",
@@ -11,6 +10,7 @@
   "keywords": [
     "ts",
     "typescript",
+    "esm",
     "cjs",
     "mcp"
   ],
@@ -21,6 +21,10 @@
     ".": {
       "require": "./cjs/index.js",
       "import": "./esm/index.js"
+    },
+    "./polyfill": {
+      "require": "./cjs/polyfill.js",
+      "import": "./esm/polyfill.js"
     },
     "./bin": {
       "require": "./cjs/bin.js",
@@ -74,6 +78,7 @@
   "typesVersions": {
     "*": {
       "index": [ "./cjs/index.d.ts" ],
+      "polyfill": [ "./cjs/polyfill.d.ts" ],
       "bin": [ "./cjs/bin.d.ts" ],
       "config": [ "./cjs/config.d.ts" ],
       "helpers": [ "./cjs/helpers.d.ts" ],
@@ -96,7 +101,7 @@
     "LICENSE",
     "README.md"
   ],
-  "bin": "./cjs/bin.js",
+  "bin": "bin.js",
   "scripts": {
     "build": "yarn build:tsc && yarn build:pkg",
     "build:pkg": "yarn build:pkg:cjs && yarn build:pkg:esm",
@@ -108,11 +113,11 @@
     "fetch": "node cjs/scripts/fetch.js",
     "verify": "node cjs/scripts/verify.js",
     "start": "node cjs/scripts/serve.js",
-    "dev": "dotenv -e .env -- ts-node src/scripts/serve.ts",
-    "dev:fetch": "dotenv -e .env -- ts-node src/scripts/fetch.ts",
-    "dev:verify": "dotenv -e .env -- ts-node src/scripts/verify.ts",
-    "ingest": "dotenv -e .env -- ts-node src/scripts/ingest.ts",
-    "zip": "dotenv -e .env -- ts-node src/scripts/zip.ts"
+    "dev": "dotenv -e .env -- ts-node -r tsx src/scripts/serve.ts",
+    "dev:fetch": "dotenv -e .env -- ts-node -r tsx src/scripts/fetch.ts",
+    "dev:verify": "dotenv -e .env -- ts-node -r tsx src/scripts/verify.ts",
+    "ingest": "dotenv -e .env -- ts-node -r tsx src/scripts/ingest.ts",
+    "zip": "dotenv -e .env -- ts-node -r tsx src/scripts/zip.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.17.4",
@@ -122,6 +127,7 @@
     "js-yaml": "4.1.0",
     "remark-frontmatter": "5.0.0",
     "remark-parse": "11.0.0",
+    "undici": "7.15.0",
     "unified": "11.0.5"
   },
   "devDependencies": {
@@ -129,6 +135,7 @@
     "@types/node": "24.3.0",
     "dotenv-cli": "10.0.0",
     "ts-node": "10.9.2",
+    "tsx": "4.20.5",
     "typescript": "5.9.2"
   }
 }

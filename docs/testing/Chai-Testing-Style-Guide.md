@@ -1,4 +1,4 @@
-# Unit Testing Best Practices Woth Mocha + Chai + TypeScript
+# Unit Testing Style Guide With Mocha + Chai + TypeScript
 
 Authoritative guidance for writing **unit tests** with **Mocha + Chai** in a **TypeScript** codebase. Focus on clarity, determinism, and type safety. **Never use `any`; if unavoidable, use `unknown` and narrow.**
 

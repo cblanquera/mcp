@@ -28,8 +28,26 @@ Add the following configuration to your `claude_desktop_config.json` where `[pwd
 
 ```json
 {
+  "name": "github.com/cblanquera/mcp",
+  "command": "npx",
+  "args": [ 
+    "-y", 
+    "chris-mcp", 
+    "serve", 
+    "--input", 
+    "[pwd]/data" 
+  ]
+}
+```
+
+#### 1.1.2 Using NPX With Cline
+
+Add the following configuration to your `cline_mcp_settings.json` where `[pwd]` is the response from the `pwd` command earlier.
+
+```json
+{
   "mcpServers": {
-    "chris-context": {
+    "github.com/cblanquera/mcp": {
       "command": "npx",
       "args": [ 
         "-y", 
@@ -40,24 +58,6 @@ Add the following configuration to your `claude_desktop_config.json` where `[pwd
       ]
     }
   }
-}
-```
-
-#### 1.1.2 Using NPX With Cline
-
-Add the following configuration to your `cline_mcp_settings.json` where `[pwd]` is the response from the `pwd` command earlier.
-
-```json
-{
-  "name": "chris-context",
-  "command": "npx",
-  "args": [ 
-    "-y", 
-    "chris-mcp", 
-    "serve", 
-    "--input", 
-    "[pwd]/data" 
-  ]
 }
 ```
 
@@ -83,16 +83,13 @@ Add the following configuration to your `claude_desktop_config.json`.
 
 ```json
 {
-  "mcpServers": {
-    "chris-context": {
-      "command": "node",
-      "args": [ 
-        "[pwd]/dist/scripts/serve.js", 
-        "--input", 
-        "[pwd]/data" 
-      ]
-    }
-  }
+  "name": "github.com/cblanquera/mcp",
+  "command": "node",
+  "args": [ 
+    "[pwd]/dist/scripts/serve.js", 
+    "--input", 
+    "[pwd]/data" 
+  ]
 }
 ```
 
@@ -102,13 +99,16 @@ Add the following configuration to your `cline_mcp_settings.json`.
 
 ```json
 {
-  "name": "chris-context",
-  "command": "node",
-  "args": [ 
-    "[pwd]/dist/scripts/serve.js", 
-    "--input", 
-    "[pwd]/data" 
-  ]
+  "mcpServers": {
+    "github.com/cblanquera/mcp": {
+      "command": "node",
+      "args": [ 
+        "[pwd]/dist/scripts/serve.js", 
+        "--input", 
+        "[pwd]/data" 
+      ]
+    }
+  }
 }
 ```
 
@@ -134,19 +134,19 @@ Here is the project's README to help you get started:
 You can manually start the server like the following.
 
 ```bash
-$ npm start --input [pwd]/.data
+$ npm start --input [pwd]/data
 ```
 
 Or you can run it manually like the following.
 
 ```bash
-$ node [pwd]/dist/scripts/serve.js --input [pwd]/.data
+$ node [pwd]/dist/scripts/serve.js --input [pwd]/data
 ```
 
 If you installed via `npx`, you can start the server like the following.
 
 ```bash
-$ npx chris-mcp serve --input [pwd]/.data
+$ npx chris-mcp serve --input [pwd]/data
 ```
 
 ## 2.1. Fetching Updated Context
@@ -154,22 +154,22 @@ $ npx chris-mcp serve --input [pwd]/.data
 You can manually fetch and verify the context like the following.
 
 ```bash
-$ npm run fetch --output [pwd]/.data
-$ npm run verify --output [pwd]/.data
+$ npm run fetch --output [pwd]/data
+$ npm run verify --output [pwd]/data
 ```
 
 Or you can run it manually like the following.
 
 ```bash
-$ node [pwd]/dist/scripts/fetch.js --output [pwd]/.data
-$ node [pwd]/dist/scripts/verify.js --output [pwd]/.data
+$ node [pwd]/dist/scripts/fetch.js --output [pwd]/data
+$ node [pwd]/dist/scripts/verify.js --output [pwd]/data
 ```
 
 If you installed via `npx`, you can start the server like the following.
 
 ```bash
-$ npx chris-mcp fetch --output [pwd]/.data
-$ npx chris-mcp verify --output [pwd]/.data
+$ npx chris-mcp fetch --output [pwd]/data
+$ npx chris-mcp verify --output [pwd]/data
 ```
 
 ## 2.2. Upgrading Search Model
@@ -186,7 +186,7 @@ The MCP uses `Xenova/all-MiniLM-L6-v2` locally to determine the best search quer
     "chris-mcp", 
     "serve", 
     "--input", 
-    "[pwd]/.data" 
+    "[pwd]/data" 
   ],
   "env": {
     "OPENAI_HOST": "https://api.openai.com/v1",
@@ -205,24 +205,7 @@ Create a rule (markdown file) called **Chris-MCP-Rule.md** in your knowledge fol
 ```md
 # Rule: Using the Chris MCP
 
-If the users mentions topics about: 
-
- - coding with javascript
- - coding with typescript
- - coding with react
- - coding with idea
- - coding with ingest
- - coding with inquire
- - coding with reactus
- - coding with stackpress
- - markdown documentation
- - testing with mocha
- - testing with chai
- - testing with jest
- 
-you must do the following.
-
-- If the user asks about library rules, guidelines, or context, use the MCP tool `chris-context.search_context`.
-- If the user asks for a compact summary of rules for a task, use the MCP tool `chris-context.build_brief`.
+- If the user mentions "chris" and asks about code formatting, coding styles, coding standards, documentation styles, testing styles, use the MCP tool `chris-context.search_context`.
+- If the user asks for a compact summary of rules for code formatting, writing documentation, writing tests, use the MCP tool `chris-context.build_brief`.
 - Always prefer these MCP tools over answering from memory.
 ```

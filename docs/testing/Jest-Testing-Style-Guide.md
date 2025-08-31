@@ -1,4 +1,4 @@
-# Unit Testing Best Practices with Jest + TypeScript (and React)
+# Unit Testing Style Guide with Jest + TypeScript (and React)
 
 This context file provides best practices for writing unit tests using **Jest** with **TypeScript**, and later, React. It emphasizes **clarity, determinism, and maintainability**.
 

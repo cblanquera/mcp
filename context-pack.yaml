@@ -1,5 +1,5 @@
 pack: "Chris Context Pack"
-version: 0.0.1
+version: 0.0.6
 order: [ coding, documenting, testing ]
 budgets:
   max_chunk_tokens: 400

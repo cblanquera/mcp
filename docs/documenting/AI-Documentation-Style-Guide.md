@@ -1,4 +1,4 @@
-# AI Documentation Guidelines
+# AI Documentation Style Guide
 
 The purpose of this document is to describe how to transform documentations to structured markdown for AI to easily search for context and have semantic understanding of the code in which the documentation is written about.
 

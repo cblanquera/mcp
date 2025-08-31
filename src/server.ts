@@ -1,4 +1,5 @@
 // modules
+import type { Terminal } from '@stackpress/lib';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
@@ -136,19 +137,107 @@ export function registerBuildBrief(server: McpServer, store: Store) {
 //--------------------------------------------------------------------//
 // Main Function
 
-export default async function serve(input: string) {
+export default async function serve(input: string, terminal: Terminal) {
+  try {
+    const store = new Store(input);
+    const server = new McpServer({
+      name: pack.pack,     // ensure these are strings
+      version: pack.version,
+    });
 
-  const store = new Store(input);
-  const server = new McpServer({
-    name: pack.pack,     // ensure these are strings
-    version: pack.version,
-  });
+    registerSearchContext(server, store);
+    registerGetRule(server, store);
+    registerDependencyGraph(server);
+    registerBuildBrief(server, store);
 
-  registerSearchContext(server, store);
-  registerGetRule(server, store);
-  registerDependencyGraph(server);
-  registerBuildBrief(server, store);
+    const transport = new StdioServerTransport();
+    
+    // Add error handling for the transport
+    let isShuttingDown = false;
+    
+    transport.onclose = async () => {
+      if (!isShuttingDown) {
+        await terminal.resolve('log', {
+          type: 'error',
+          message: 'MCP transport connection closed unexpectedly',
+        });
+        process.exit(1);
+      } else {
+        console.log('MCP transport connection closed during shutdown');
+      }
+    };
 
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
+    transport.onerror = async (error: any) => {
+      await terminal.resolve('log', {
+        type: 'error',
+        message: `MCP transport connection error: ${error.message}`,
+      });
+      if (!isShuttingDown) {
+        process.exit(1);
+      }
+    };
+
+    // Connect with proper error handling
+    try {
+      await server.connect(transport);
+      await terminal.resolve('log', {
+        type: 'success',
+        message: 'MCP server connected successfully',
+      });
+    } catch (error) {
+      const e = error as Error;
+      await terminal.resolve('log', {
+        type: 'error',
+        message: `Failed to connect MCP server: ${e.message || e.toString()}`,
+      });
+      throw error;
+    }
+
+    // Handle process termination gracefully
+    process.on('SIGINT', async () => {
+      await terminal.resolve('log', {
+        type: 'info',
+        message: 'Received SIGINT, shutting down gracefully...',
+      });
+      isShuttingDown = true;
+      try {
+        await server.close();
+        process.exit(0);
+      } catch (error) {
+        const e = error as Error;
+        await terminal.resolve('log', {
+          type: 'error',
+          message: `Error during shutdown: ${e.message || e.toString()}`,
+        });
+        process.exit(1);
+      }
+    });
+
+    process.on('SIGTERM', async () => {
+      await terminal.resolve('log', {
+        type: 'info',
+        message: 'Received SIGTERM, shutting down gracefully...',
+      });
+      isShuttingDown = true;
+      try {
+        await server.close();
+        process.exit(0);
+      } catch (error) {
+        const e = error as Error;
+        await terminal.resolve('log', {
+          type: 'error',
+          message: `Error during shutdown: ${e.message || e.toString()}`,
+        });
+        process.exit(1);
+      }
+    });
+
+  } catch (error) {
+    const e = error as Error;
+    await terminal.resolve('log', {
+      type: 'error',
+      message: `Failed to start MCP server: ${e.message || e.toString()}`,
+    });
+    process.exit(1);
+  }
 };

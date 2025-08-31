@@ -77,7 +77,7 @@ export async function ensureDir(dirPath: string) {
  */
 export async function download(url: string, destinationPath: string) {
   //Fetch the file from the URL
-  const response = await fetch(url, { headers: { 'User-Agent': '@stackpress/mcp fetch' }});
+  const response = await fetch(url, { headers: { 'User-Agent': 'chris-mcp fetch' }});
   //Throw an error if the response is not OK
   if (!response.ok) throw new Error(`Download failed ${response.status} ${response.statusText} for ${url}`);
   //Ensure the destination directory exists
