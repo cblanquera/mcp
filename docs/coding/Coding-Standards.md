@@ -1,400 +1,255 @@
-# Coding Standards
+# Coding Standards Style Guide
 
-Before contributing to anyone's code, be sure to study how the existing project code is expressed. It's important that all code in a project closely matches each others.
+Comprehensive guidelines for maintaining consistent coding practices across projects. These standards ensure code readability, reduce eye strain, and promote collaboration by enforcing uniformity in formatting, naming, and management practices. Following these rules helps create maintainable codebases that are easy to understand and contribute to.
 
-> ❌ Do not use your own standards irrespective of the existing project's code. Even if they have not
-> explicitly set a standard.
+ 1. [General Principles](#1-general-principles)
+ 2. [Formatting Standards](#2-formatting-standards)
+ 3. [Commenting and Documentation](#3-commenting-and-documentation)
+ 4. [Naming Conventions](#4-naming-conventions)
+ 5. [Project Management Practices](#5-project-management-practices)
 
-## 1. Char Length
+## 1. General Principles
 
-Code should be written like a book. A book has pages and each line of each page has a common max length. Imagine a child's eye moving from left to right when reading a book. As that child reads while growing up, their eyes move a lot less. Eventually a person moves from letter to letter, to word by word, to line by line, and some can even do page by page *(speed reading)*. This is because as a person reads more and more they develop their sight peripherals, but there is a limit to how far peripherals can reach *(less than 180 degrees)*. Around when an individual's sight peripherals reach their limit is when the eyes need to move. Eyes moving constantly without rest can cause eye stress. Unlike a book, there is no max length a line of code could be and contributes to eye stress for everyone reading code not having a standard.
+These foundational rules establish the overall approach to coding standards in projects.
 
-> Every line of code must not exceed **80 characters**.
+### 1.1. Consistency Requirements
 
-If you are using VSCode 
- 1. Go to File > Preferences > Settings.
- 2. Search for "rulers"
- 3. Click "Edit in settings.json"
- 4. Add the following to `settings.json`
+Consistency **MUST** be prioritized over personal preferences.
 
-```js
-"editor.rulers": [ 72, 80, 100, 120 ],
+**Requirements:**
+
+ - **MUST** study and match the existing project's coding style before contributing.
+ - **MUST NOT** use personal standards that differ from the project's established patterns.
+ - **SHOULD** maintain methodical, logical, and consistent syntax even if minor mistakes occur.
+ - **SHOULD** propose improvements through questions or discussions when in doubt.
+
+### 1.2. Collaboration Guidelines
+
+Collaboration **MUST** focus on small, focused changes.
+
+**Requirements:**
+
+ - **MUST** keep pull requests small and focused on specific issues.
+ - **SHOULD** avoid committing all unsaved changes blindly.
+ - **MAY** ask questions or seek clarification on standards.
+
+## 2. Formatting Standards
+
+These standards ensure code is readable and prevents issues like horizontal scrolling.
+
+### 2.1. Line Length
+
+Line length **MUST** be limited to reduce eye strain.
+
+**Requirements:**
+
+ - **MUST** ensure every line of code does not exceed 80 characters.
+ - **MUST** follow a consistent line breaking style to prevent horizontal scrolling.
+ - **SHOULD** configure editors to show rulers at 72, 80, 100, 120 characters.
+
+**Example Configuration (VSCode):**
+
+```json
+"editor.rulers": [72, 80, 100, 120]
 ```
 
-To keep code readable and prevent horizontal scrolling, follow a consistent line breaking (drop down) style.
-
-```js
-//✅ Good
+**Examples:**
+```javascript
+// ✅ Good
 import type { ErrorMap } from '../types.js';
 
-//❌ Bad
-import type { 
-  ErrorMap 
-} from '../types.js';
+// ❌ Bad - no spaces around braces
+import type {ErrorMap} from '../types.js';
 
-//✅ Good
+// ✅ Good - multi-line with trailing comma
 import type { 
   ErrorMap,
   SchemaColumnInfo, 
   SchemaSerialOptions 
 } from '../types.js';
 
-//❌ Bad - too long
+// ❌ Bad - too long
 import type { ErrorMap, SchemaColumnInfo, SchemaSerialOptions } from '../types.js';
-
-//✅ Good
-function fooBar(zoo: number) {
-  //...
-}
-
-//❌ Bad - too short to be broken into multiple lines
-function fooBar(
-  zoo: number
-) {
-  //...
-}
-
-//✅ Good 
-function fooBar(
-  zoo: number, 
-  baz: string, 
-  hash: Record<string, string>, 
-  list?: string[]
-) {
-  //...
-}
-
-//❌ Bad - too long
-function fooBar(zoo: number, baz: string, hash: Record<string, string>, list?: string[]) {
-  //...
-}
-
-//✅ Good
-const fooBar = [ 'foo' ];
-//❌ Bad - too short to be broken into multiple lines
-const fooBar = [
-  'foo'
-];
-
-//✅ Good
-const fooBar = [
-  'foo',
-  'bar',
-  'zoo',
-  'baz',
-  'foobar',
-  'zoobaz',
-  'foobarzoo'
-];
-//❌ Bad - too long
-const fooBar = [ 'foo', 'bar', 'zoo', 'baz', 'foobar', 'zoobaz', 'foobarzoo'];
-
-//✅ Good
-const fooBar = { foo: 'bar' };
-//❌ Bad - too short to be broken into multiple lines
-const fooBar = { 
-  foo: 'bar' 
-};
-
-//✅ Good
-const fooBar = { 
-  foo: 'bar',
-  bar: 'bar',
-  zoo: 'zoo',
-  baz: 'baz',
-  foobar: 'foobar',
-  zoobaz: 'zoobaz',
-  foobarzoo: 'foobarzoo'
-};
-//❌ Bad - too long
-const fooBar = { foo: 'bar', bar: 'bar', zoo: 'zoo', baz: 'baz', foobar: 'foobar', zoobaz: 'zoobaz', foobarzoo: 'foobarzoo' };
 ```
 
-## 2. Indentation
+### 2.2. Indentation
 
-In all circumstances use **2 spaces** for indents.
+Indentation **MUST** use spaces consistently.
 
- - ❌ Do not use 4 spaces for indents.
- - ❌ Do not use *[tab]* for indents.
+**Requirements:**
 
-## 3. Quotes
+ - **MUST** use 2 spaces for all indents.
+ - **MUST NOT** use 4 spaces or tabs for indents.
 
-By default, prefer single quotes (**'**) over double quotes (").
+### 2.3. Quotes
 
- - Use template quotes (`) for templating use or for quotes with multiple lines.
- - Use double quotes for HTML and React attributes
+Quotes **MUST** be used appropriately based on context.
 
-| Context             | Preferred               |
-| ------------------- | ----------------------- |
-| JavaScript strings  | `'single quotes'`       |
-| Multiline/templates | `` `template string` `` |
-| HTML/JSX attributes | `"double quotes"`       |
+**Requirements:**
 
-## 4. Semicolons
+ - **MUST** prefer single quotes (') for JavaScript strings.
+ - **MUST** use template literals (`) for multiline strings or templating.
+ - **MUST** use double quotes (") for HTML/JSX attributes.
 
-In general end statements with a semicolon.
+### 2.4. Semicolons
 
-```js
-//✅ Good
+Semicolons **MUST** be used to end statements where appropriate.
+
+**Requirements:**
+
+ - **MUST** end variable declarations and function calls with semicolons.
+ - **MUST NOT** end conditional blocks, while/for loops (except do-while) with semicolons.
+ - **MUST** end do-while loops with a semicolon.
+ - **MUST** end exported variables with semicolons.
+ - **MUST NOT** add semicolons to function declarations.
+
+**Examples:**
+
+```javascript
+// ✅ Good
 const name = 'John';
-//❌ Bad
+
+// ❌ Bad
 const name = 'John'
 
-//✅ Good
-const { name } = props;
-//❌ Bad
-const { name } = props
-
-//✅ Good
-fooBar();
-//❌ Bad
-fooBar()
-```
-
-Conditional blocks must not end with semicolons.
-
-```js
-//✅ Good
+// ✅ Good
 if (true) {}
-//❌ Bad
+
+// ❌ Bad
 if (true) {};
 ```
 
-`while` and `for` iteration blocks must not end with semicolons. `do while` blocks must end with semicolon.
+### 2.5. Spaces in Data Structures
 
-```js
-//✅ Good
-while (true) {}
-//❌ Bad
-while (true) {};
+Spaces **MUST** be used in non-empty arrays and objects.
 
-//✅ Good
-do {} while (true);
-//❌ Bad
-do {} while (true)
+**Requirements:**
 
-//✅ Good
-for (;;) {}
-//❌ Bad
-for (;;) {};
-```
+ - **MUST** include spaces inside opening and closing braces for non-empty arrays and objects.
+ - **MUST NOT** add spaces in empty arrays or objects.
 
-Function declarations must not have semicolons.
+**Examples:**
 
-```js
-//✅ Good
-function fooBar() {}
-//❌ Bad
-function fooBar() {};
-```
-
-All exported variables must have semicolons.
-
-```js
-//✅ Good
-export const fooBar = 'foobar';
-//❌ Bad
-export const fooBar = 'foobar'
-
-//✅ Good
-export function fooBar() {};
-//❌ Bad
-export function fooBar() {}
-
-//✅ Good
-export default function fooBar() {};
-//❌ Bad
-export default function fooBar() {}
-```
-
-## 5. Comments
-
-Only use `/*...*/` for JSDoc-style comments outside of functions. In Typescript there is no need to add `@param` to the JSDoc.
-
-```js
-//✅ Good
-/**
- * Does the foobar
- */
-function fooBar(foo: string) {}
-
-//❌ Bad
-/**
- * Does the foobar
- *
- * @param string foo
- */
-function fooBar(foo: string) {}
-
-//❌ Bad
-function fooBar(foo: string) {
-  /* Does the foobar */
-}
-```
-
-Only use inline comments `//` inside of functions and blocks. For single line inline comments, do not add a space after `//`.
-
-```js
-//This is a good comment
-// This is a bad comment
-
-//This is a long comment that describes
-// complicated logic. You can use spaces
-// so they know it's connected as one
-// comment block
-
-//These are directions
-// 1. Step 1
-// 2. Step 2
-
-//These are flows
-// - if good then send
-// - otherwise dont send
-```
-
-For comments that explain the code, add before the code being explained. Do not add explainer comments after its relevant code.
-
-```js
-//✅ Good
-//get the API key from env
-const token = process.env.API_KEY;
-
-
-//❌ Bad
-const secret = process.env.API_SECRET; //get the API secret from env
-
-//❌ Bad
-const host = process.env.API_HOST;
-//get the API host from env
-```
-
-## 6. Spaces Between Data Block
-
-A data block are non scalar data structure like arrays and objects. Data blocks must have a space in between the opening and closing where values are present. Consider the following examples.
-
-```js
-//✅ Good
-const fooBar = [];
-//❌ Bad
-const fooBar = [ ];
-
-//✅ Good
-const fooBar = {};
-//❌ Bad
-const fooBar = { };
-
-//✅ Good
+```javascript
+// ✅ Good
 const fooBar = [ 'foo', 'bar' ];
-//❌ Bad
+
+// ❌ Bad
 const fooBar = ['foo','bar'];
-
-//✅ Good
-const fooBar = { foo: 'foo', bar: 'bar' };
-//❌ Bad
-const fooBar = {foo:'foo',bar:'bar'};
-
-//✅ Good
-const fooBar = { foo, bar };
-//❌ Bad
-const fooBar = {foo,bar};
 ```
 
-## 7. Naming Conventions
+## 3. Commenting and Documentation
 
-When deciding on a name please consider the following.
+Comments **MUST** be formatted correctly based on their purpose.
 
- - Other developers need to be able to clearly understand what the variable, function, class, etc. is without looking at the JavaDoc or comment about it.
- - Other foreign developers use translation to figure out what a variable, function, class is.
+### 3.1. JSDoc Comments
 
-With that said, avoid single letter or abbreviations for names. 
+JSDoc-style comments **MUST** be used for function documentation.
 
-```js
-//❌ Bad
-const x = 'foobar';
-//❌ Bad
-const lat = 90.123;
-//❌ Bad
-const cntry = 'United States';
-//❌ Bad
-function getCLR() {}
+**Requirements:**
+
+ - **MUST** use /* ... */ for JSDoc comments outside functions.
+ - **MUST NOT** include @param in TypeScript JSDoc as it's inferred.
+ - **MUST** use // for inline comments inside functions.
+
+**Examples:**
+
+```javascript
+// ✅ Good
+/**
+ * Does the foobar
+ */
+function fooBar(foo: string) {}
+
+// ❌ Bad
+/**
+ * Does the foobar
+ * @param {string} foo
+ */
+function fooBar(foo: string) {}
 ```
 
-**Variables**
+### 3.2. Inline Comments
 
- - Use camelCase
- - Use nouns for values: `user`, `orderList`
- - Variables representing booleans, can use `is`, `has`, `can`, `should`, `valid`
- - Variables representing functions, follow function naming
- - Variables representing class definitions, follow class naming
+Inline comments **MUST** follow spacing rules.
 
-**Functions**
+**Requirements:**
 
- - Use camelCase
- - Use verbs or verb phrasing (verb followed by noun): `get()`, `getUser()`, `submitForm()`, `resetTimer()`
- - For React components, follow class naming
+ - **MUST** place explainer comments before the relevant code.
+ - **MUST NOT** add a space after // for single-line comments.
+ - **MAY** use spaces for multi-line comment blocks.
+ - **SHOULD** use comments for directions or flows.
 
-**Classes & Components**
+## 4. Naming Conventions
 
- - Use PascalCase
- - Use nouns for values: `User`, `EventEmitter`, `TaskQueue`
+Names **MUST** be descriptive and follow casing rules.
 
-**Folders & Files**
+### 4.1. Variable Naming
 
-In general you should use kebab-case to name your folders and files. Files that `export default` a class or component should use PascalCase.
+Variables **MUST** use camelCase.
 
-| Item            | Naming     | Example                 |
-| --------------- | ---------- | ----------------------- |
-| Files (JS/TS)   | kebab-case | `user-service.ts`       |
-| Classes         | PascalCase | `User.ts`               |
-| Components      | PascalCase | `UserCard.tsx`          |
-| Folders         | kebab-case | `user-profile/`         |
-| Class Index     | PascalCase | `User/index.ts`         |
-| Component Index | PascalCase | `UserCard/index.tsx`    |
+**Requirements:**
 
-## 8. Git Commits
+ - **MUST** use nouns for values.
+ - **MUST** avoid single letters or abbreviations.
+ - **MAY** use prefixes like is, has, can for booleans.
 
-When committing your code please consider the following.
+### 4.2. Function Naming
 
-- Use clear, concise commit messages. Longer messages are encouraged.
-- Start your message with a verb: `Added`, `Created`, `Removed`, etc.
-- Be specific about the file types you are committing: `pages`, `views`, `model`, etc.
-- If the commit is not working yet add `(wip)` tag which means work in **progress**.
-- Add the Github Issue number/s (ie `#123`) related to this commit.
-- Add how long you spent on this commit using short hand time format: `5m` meaning 5 minutes, `42h` meaning 42 hours. Do not use days, weeks, months. 
-- Avoid committing all your unsaved changes blindly. Manually design your commits per issue or logical grouping.
+Functions **MUST** use camelCase and verb phrasing.
 
-```bash
-//❌ Bad
-updated code
-//❌ Bad
-login form
-//❌ Bad
-did this and that and that and this..
-✅ Good
-"Created login form view components (wip) #123 4h"
-```
+**Requirements:**
 
-## 9. Dependencies
+ - **MUST** start with verbs or verb-noun phrases.
 
-When managing dependencies, please keep in mind the following bullets.
+### 4.3. Class and Component Naming
 
- - Only install packages you truly need.
- - Actively remove packages you are no longer using.
- - Prefer native APIs and utilities before reaching for libraries.
- - Document why a non-obvious package is used.
+Classes **MUST** use PascalCase.
 
-## 10. Environment Variables
+**Requirements:**
 
-When managing secret information, please keep in mind the following bullets.
+ - **MUST** use nouns.
 
- - Do not hardcode secrets or API keys.
- - Keep .env files out of git.
+### 4.4. File and Folder Naming
 
-## 11. Final Notes
+Files and folders **MUST** use kebab-case, except for class/component exports.
 
-Lastly, please keep in mind the following notes.
+**Requirements:**
 
- - Syntax and formatting mistakes are generally forgivable as long as they are methodical, logical and consistent.
- - Consistency beats preference. When in doubt, match existing patterns.
- - Don’t be afraid to ask questions or propose improvements.
- - Keep your pull requests small and focused.
+ - **MUST** use PascalCase for files exporting classes or components.
+
+## 5. Project Management Practices
+
+These practices ensure proper handling of dependencies, secrets, and version control.
+
+### 5.1. Git Commits
+
+Commit messages **MUST** be clear and structured.
+
+**Requirements:**
+
+ - **MUST** start with a verb.
+ - **MUST** be specific about changes.
+ - **SHOULD** include (wip) for work in progress.
+ - **SHOULD** reference GitHub issues.
+ - **SHOULD** include time spent (e.g., 4h).
+
+### 5.2. Dependencies
+
+Dependencies **MUST** be managed carefully.
+
+**Requirements:**
+
+ - **MUST** only install necessary packages.
+ - **MUST** remove unused packages.
+ - **SHOULD** prefer native APIs over libraries.
+ - **SHOULD** document non-obvious package usage.
+
+### 5.3. Environment Variables
+
+Secrets **MUST** be handled securely.
+
+**Requirements:**
+
+ - **MUST NOT** hardcode secrets or API keys.
+ - **MUST** keep .env files out of version control.

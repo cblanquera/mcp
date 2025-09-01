@@ -1,577 +1,262 @@
 # TypeScript Style Guide
 
-This document defines the coding standards for TypeScript. The guide covers everything from formatting basics to advanced conventions such as overloads, delegation, and error handling.
+Comprehensive guidelines for writing consistent and maintainable TypeScript code. These standards cover formatting, typing, class structures, control flow, and error handling to ensure code is readable, reliable, and scalable. Following these rules promotes best practices and reduces bugs in TypeScript projects.
 
-## 1. Formatting and Syntax
+ 1. [Formatting and Syntax Standards](#1-formatting-and-syntax-standards)
+ 2. [Import and Export Rules](#2-import-and-export-rules)
+ 3. [Type and Class Definitions](#3-type-and-class-definitions)
+ 4. [Control Flow and Naming Conventions](#4-control-flow-and-naming-conventions)
+ 5. [Error Handling and Runtime Practices](#5-error-handling-and-runtime-practices)
 
-The following describes the fundamental formatting rules that every developer must follow. It covers spacing, indentation, semicolons, quotes, and other low-level details that guarantee code consistency. These rules are non-negotiable and should be enforced through tooling (ESLint, Prettier, or EditorConfig).
+## 1. Formatting and Syntax Standards
 
-### 1.1. Indentation, Spacing, and Line Length
+These foundational rules ensure consistent code formatting for better readability.
 
-Indentation and spacing make code easier to read. The goal is to keep the visual structure uniform so that code review focuses on logic, not style.
+### 1.1. Indentation and Spacing
 
- 1. Indentation must be 2 spaces. Tabs are not allowed.  
- 2. Soft line length limit is 100 characters. Break lines before reaching it.  
- 3. Place spaces after commas, around operators, and around union/intersection pipes.  
+Indentation and spacing **MUST** be uniform.
 
-**✅ Good**
-```ts
+**Requirements:**
+
+ - **MUST** use 2 spaces for indentation; tabs are not allowed.
+ - **MUST** limit lines to 100 characters and break before reaching it.
+ - **MUST** place spaces after commas, around operators, and around union/intersection pipes.
+
+**Examples:**
+```typescript
+// ✅ Good
 function sum(a: number, b: number): number {
   return a + b;
 }
-```
 
-**❌ Bad**
-
-```ts
+// ❌ Bad
 function sum(a:number,b:number){return a+b;}
 ```
 
-#### 1.1.1. Semicolons and Quotes
+### 1.2. Semicolons and Quotes
 
-Always use semicolons and single quotes. This prevents ambiguity in parsing and avoids unnecessary diffs.
+Semicolons and quotes **MUST** follow strict rules.
 
-**✅ Good**
+**Requirements:**
 
-```ts
+ - **MUST** always use semicolons.
+ - **MUST** use single quotes for strings.
+ - **MUST** avoid double quotes unless necessary.
+
+**Examples:**
+
+```typescript
+// ✅ Good
 const name: string = 'Stackpress';
+
+// ❌ Bad
+const name = "Stackpress";
 ```
 
-**❌ Bad**
+### 1.3. Braces and Blank Lines
 
-```ts
-const name = "Stackpress"
-```
+Braces and blank lines **MUST** be handled consistently.
 
-#### 1.1.2. Braces and Blank Lines
+**Requirements:**
 
-Opening braces go on the same line (K&R style). Document blocks such as functions, lists, or code must be separated by exactly one blank line.
+ - **MUST** place opening braces on the same line (K&R style).
+ - **MUST** separate document blocks with exactly one blank line.
+ - **MUST NOT** use multiple consecutive empty lines.
 
-**✅ Good**
+**Examples:**
 
-```ts
+```typescript
+// ✅ Good
 if (value) {
   doSomething();
 }
-```
 
-**❌ Bad**
-
-```ts
+// ❌ Bad
 if (value)
 {
     doSomething()
 }
 ```
 
-#### 1.1.3. Empty Lines
+### 1.4. Trailing Commas and Lists
 
-Do not use multiple consecutive empty lines. One empty line between document blocks is enough.
+Trailing commas **MUST** be avoided.
 
-> HINT: Remove duplicate blank lines during reviews.
+**Requirements:**
 
-### 1.2. Trailing Commas and Lists
+ - **MUST NOT** use trailing commas in imports or parameter lists.
+ - **MUST** ensure lists in documentation have at least two items.
 
-Trailing commas are not allowed in import lists or parameter lists. Bullet and numbered lists in documentation must have at least two items.
+## 2. Import and Export Rules
 
- - ✅ Good: `foo(a, b, c)`  
- - ❌ Bad: `foo(a, b, c,)`  
- - ✅ Good: `import { one, two } from './module.js'`  
- - ❌ Bad: `import { one, two, } from './module.js'`
+Imports and exports **MUST** be organized and formatted correctly.
 
-## 2. Imports
+### 2.1. Import Organization
 
-Organize imports by node modules like `node:path`, `node:fs`, packages (in `node_modules`) and local imports as well as type imports and actual imports. Consider the following.
+Imports **MUST** be grouped by type.
 
-```js
-//node
+**Requirements:**
+
+ - **MUST** organize imports: node modules first (prefixed with 'node:'), then packages, then local.
+ - **MUST** separate type imports from runtime imports.
+ - **MUST** prefix native node modules with 'node:'.
+
+**Examples:**
+```javascript
+// node
 import type { IncomingMessage } from 'node:http';
 import { resolve } from 'node:path';
 import fs from 'node:fs';
-//modules
+// modules
 import type { Request } from '@whatwg/fetch';
 import { Mailer, send } from 'simple-mailer'; 
 import mustache from 'mustache';
-//local
+// local
 import type { User, Auth } from '../types.js';
 import { getUser } from './helpers';
 import Session from './Session.js';
 ```
 
-When importing native node modules, prefix the name with `node:`.
+### 2.2. Export Formatting
 
-```js
-//✅ Good
-import fs from 'node:fs';
+Exports **MUST** end with semicolons.
 
-//❌ Bad
-import fs from 'fs';
-```
+**Requirements:**
 
-## 3. Exports
+ - **MUST** end all export blocks with a semicolon, even for functions or classes.
 
-Export blocks must always end with a semicolon (even if it is a function or class).
-
-```ts
-//✅ Good
+**Examples:**
+```typescript
+// ✅ Good
 export const template = 'Hello %s';
 
-//✅ Good
+// ✅ Good
 export function getTemplate() {
   return template;
 };
 
-//✅ Good
+// ✅ Good
 export default class Template {};
 
-//❌ Bad
-export const welcome = 'Welcom %s'
-
-//❌ Bad
-export function getWelcome() {
-  return welcome;
-}
-
-//❌ Bad
-export class Message {}
+// ❌ Bad
+export const welcome = 'Welcom %s';
 ```
 
-## 4. Types, Classes, and Methods
+## 3. Type and Class Definitions
 
-The following describes how we declare types, classes, generics, and methods. It ensures that public APIs are explicit, overloads are well documented, and code is logically consistent. Strong typing and consistent modifiers are key to reliability and readability.
+Types and classes **MUST** be defined with explicit rules for consistency.
 
-### 4.1. Styling Objects Types
+### 3.1. Object Types
 
-Use commas to separate properties in an object type. Do not use semicolons to separate properties in an object type.
+Object types **MUST** use commas for separation.
 
-```ts
-//✅ Good
+**Requirements:**
+ - **MUST** use commas to separate properties; no semicolons.
+ - **MUST** prefer 'type' over 'interface' for object types.
+
+**Examples:**
+```typescript
+// ✅ Good
 type User = {
   name: string,
   age: number
 };
 
-//❌ Bad
+// ❌ Bad
 type Post = {
   title: string;
   detail: string;
 };
-
-//❌ Bad
-type Product = {
-  title: string
-  price: number
-};
 ```
 
-### 4.2. Types and Interfaces
+### 3.2. Interfaces vs Types
 
-Use `interface` to describe the public method and properies of a class. Use `interface` if you intend to implement it with a class. Use `type` to describe object properties, functions and variables. When it comes to object types, prefer to use `type` over `interface`.
+Interfaces and types **MUST** be used appropriately.
 
-```ts
-//✅ Good
-type User = {
-  name: string,
-  age: number
-};
+**Requirements:**
+ - **MUST** use 'interface' for class shapes that will be implemented.
+ - **MUST** use 'type' for object properties, functions, and variables.
 
-//✅ Good
-interface Payments {
-  amount: number,
-  pay(cc: string): Promise<boolean>
-}
-class Checkout implements Payments {
-  public amount = 0;
-  async public pay(cc: string) {
-    return true;
-  }
-}
+### 3.3. Generics and Annotations
 
-//❌ Bad
-interface Product {
-  title: string,
-  price: number
-}
-```
+Generics **MUST** default to 'unknown'.
 
-> Don't add semicolon at the end of an `interface` block.
+**Requirements:**
 
-### 4.3. Types and Generics
+ - **MUST** default generics to 'unknown'; avoid 'any'.
+ - **MUST** format type annotations with no space before colon and one after.
+ - **MUST** include spaces around '|' and '&' in unions/intersections.
 
-Generics must default to `unknown` unless otherwise required. Avoid `any`. If unavoidable, isolate it at module boundaries.
+### 3.4. Built-in Types Usage
 
- - ✅ Good: `class Router<R = unknown, S = unknown>`  
- - ❌ Bad: `class Router<R = any, S = any>`  
+Built-in types **MUST** be preferred.
 
-**✅ Good**
+**Requirements:**
 
-```ts
-function parse(input: unknown): string | number {
-  if (typeof input === 'string' || typeof input === 'number') return input;
-  throw new Error('Unsupported');
-}
-```
+ - **MUST** use Record, Omit, Pick, Partial, Required where appropriate.
+ - **SHOULD** use these to keep types in sync with parent changes.
 
-**❌ Bad**
+### 3.5. Function and Method Typing
 
-```ts
-function parse(input: any) { return input; }
-```
+Function types **MUST** be inferred where possible.
 
-#### 4.3.1. Type Annotations and Unions
+**Requirements:**
 
-Type annotations must not have a space before the colon and must have one space after. Unions and intersections must include spaces around the `|` and `&`.
+ - **MUST NOT** add argument or return types if inferable.
+ - **MUST** use explicit access modifiers in classes.
+ - **MUST** prefix protected/private methods with '_'.
 
-**✅ Good**
+## 4. Control Flow and Naming Conventions
 
-```ts
-let id: string | number;
-```
+Control flow and naming **MUST** be consistent.
 
-**❌ Bad**
+### 4.1. Delegation
 
-```ts
-let id:string|number;
-```
+Delegation **MUST** be by shape.
 
-#### 4.3.2. Narrowing
+**Requirements:**
 
-Use narrowing with `typeof`, `Array.isArray`, or custom predicates. Never assume unknown input without checks.
+ - **MUST** delegate based on input shape.
+ - **SHOULD** return 'this' for chainable methods.
 
-**✅ Good**
+### 4.2. Naming Standards
 
-```ts
-function toArray(x: unknown): string[] {
-  if (Array.isArray(x)) return x as string[];
-  return [String(x)];
-}
-```
+Names **MUST** follow casing conventions.
 
-**❌ Bad**
+**Requirements:**
 
-```ts
-function toArray(x: any) { return x; }
-```
+ - **MUST** use PascalCase for classes/interfaces.
+ - **MUST** use camelCase for functions/variables.
+ - **MUST** use UPPER_SNAKE_CASE only for true constants.
 
-### 4.3.3. Built-In Types
+### 4.3. Documentation
 
-When possible, prefer to use Typescript's built in types.
+Documentation **MUST** use JSDoc for public members.
 
-### 4.3.3.1. Record
+**Requirements:**
 
-Use `Record` to cleanly define an object. It's more readable.
+ - **MUST** explain 'why' in inline comments, not 'what'.
 
-```ts
-//✅ Good
-type EventMap = Record<string, Function>;
+## 5. Error Handling and Runtime Practices
 
-//❌ Bad - Can look confusing for complex objects.
-type RouteMap = { [string]: Function };
-```
-
-### 4.3.3.2. Omit
-
-Use `Omit` to remove properties that aren't needed from a type. You should use `Omit` if you want the final type to be affected whenever the parent type is changed.
-
-```ts
-type User = {
-  name: string,
-  role?: string,
-  password: string,
-  token: string,
-  secret: string
-};
-
-//✅ Good
-type Session = Omit<User, 'password' | 'secret'>;
-
-//❌ Bad - Whenever you change the User type definition, you also have to change this.
-type LoginCredentials = { name: string, password: string };
-```
-
-### 4.3.3.3. Pick
-
-Use `Pick` to cherry pick the properties needed from a type. You should use `Pick` if you want the final type to be affected whenever the parent type is changed.
-
-```ts
-type User = {
-  name: string,
-  role?: string,
-  password: string,
-  token: string,
-  secret: string
-};
-
-//✅ Good
-type LoginCredentials = Pick<User, 'name' | 'password'>;
-
-//❌ Bad - Whenever you change the User type definition, you also have to change this.
-type Session = { name: string, role?: string, token: string };
-```
-
-### 4.3.3.4. Partial
-
-Use `Partial` to make everything optional. You should use `Partial` if you want the final type to be affected whenever the parent type is changed.
-
-```ts
-type User = { 
-  name: string,
-  role?: string,
-  password: string,
-  token: string,
-  secret: string
-};
-
-//✅ Good
-type UserUpdateInputs = Partial<User>;
-
-//❌ Bad - Whenever you change the User type definition, you also have to change this.
-type UserInputs = { 
-  name?: string,
-  role?: string,
-  password?: string,
-  token?: string,
-  secret?: string
-};
-```
+Errors and runtime **MUST** be handled strictly.
 
-### 4.3.3.5. Required
+### 5.1. Error Throwing
 
-Use `Required` to make everything required. You should use `Required` if you want the final type to be affected whenever the parent type is changed.
-
-```ts
-type User = { 
-  name: string,
-  role?: string,
-  password: string,
-  token: string,
-  secret: string
-};
-
-//✅ Good
-type SignupInputs = Required<User>;
+Errors **MUST** be thrown with meaningful messages.
 
-//❌ Bad - Whenever you change the User type definition, you also have to change this.
-type Profile = { 
-  name: string,
-  role: string,
-  password: string,
-  token: string,
-  secret: string
-};
-```
+**Requirements:**
 
-### 4.4. Functions and Class Methods
-
-Don't add argument types if it can naturally be inferred.
+ - **MUST** throw Error or subclasses; never swallow errors.
+ - **MUST** return typed results.
 
-```ts
-//✅ Good
-function increment(value: number, by = 1) {}
+### 5.2. Runtime and Testing
 
-//❌ Bad
-function decrement(value: number, by: number = 1) {}
+Runtime **MUST** be strict ESM.
 
-//✅ Good
-private _increment(value: number, by = 1) {}
+**Requirements:**
 
-//❌ Bad
-private _decrement(value: number, by: number = 1) {}
-```
-
-Don't add a return type if it can naturally be inferred.
-
-```ts
-//✅ Good
-function increment(value: number, by = 1) {
-  return value + by;
-}
-
-//❌ Bad
-function decrement(value: number, by = 1): number {
-  return value - by;
-}
-
-//✅ Good
-private _increment(value: number, by = 1) {
-  return value + by;
-}
-
-//❌ Bad
-private _decrement(value: number, by = 1): number {
-  return value - by;
-}
-```
-
-### 4.5. Classes, Members, and Overloads
-
-Classes must use explicit access modifiers (`public`, `protected`, `private`). Internal helpers must be `protected`. `protected` and `private` methods must be prefixed with `_`.
-
-```ts
-class User {
-  //✅ Good
-  protected _setName() {}
-
-  //❌ Bad
-  protected setAge() {}
-
-  //✅ Good
-  private _saveFile() {}
-
-  //❌ Bad
-  private saveDB() {}
-}
-```
-
-#### 4.5.1. Access Modifiers
-
-Composition fields should be `readonly` if not reassignable. Getters are used to expose internal state instead of public mutable fields.
-
-**✅ Good**
-
-```ts
-export default class Router {
-  public readonly action: ActionRouter;
-
-  public get routes() {
-    return this.action.routes;
-  }
-};
-```
-
-**❌ Bad**
-
-```ts
-export default class Router {
-  action;
-  routes;
-};
-```
-
-#### 4.5.2. Method Overloads
-
-Public APIs should declare overload signatures, followed by one implementation.
-
-**✅ Good**
-
-```ts
-public async resolve(event: string): Promise<void>;
-public async resolve(method: Method, path: string): Promise<void>;
-public async resolve(a: string, b?: string) {
-  if (typeof b === 'string') return this._resolveRoute(a, b);
-  return this._resolveEvent(a);
-}
-```
-
-**❌ Bad**
-
-```ts
-public async resolve(a: any, b?: any) { return {}; }
-```
-
-## 5. Control Flow, Naming, and Documentation
-
-The following covers delegation rules, naming conventions, and inline documentation. The goal is to make the codebase predictable, self-documenting, and easy for new developers to navigate. Consistent naming and documentation avoid misunderstandings during collaboration.
-
-### 5.1. Delegation and Fluent APIs
-
-Delegate by shape (string → view, paramless fn → import, function with params → action).  
-Chainable methods should return `this`.
-
-**✅ Good**
-
-```ts
-public on(event: string, action: AnyAction): this {
-  if (typeof action === 'string') {
-    this.view.on(event, action);
-  } else {
-    this.action.on(event, action);
-  }
-  return this;
-}
-```
-
-**❌ Bad**
-
-```ts
-public on(e: any, a: any) {
-  (this as any).whatever?.(e, a);
-}
-```
-
-### 5.2. Naming
-
-The following points briefly cover naming conventions.
-
- - Classes/Interfaces: `PascalCase`  
- - Functions/variables: `camelCase`  
- - Constants: `UPPER_SNAKE_CASE` only if truly constant  
-
-**✅ Good**
-
-```ts
-class ActionRouter {}
-const listenerCount = 5;
-```
-
-**❌ Bad**
-
-```ts
-class action_router {}
-const X = 5;
-```
-
-### 5.3. Comments
-
-Use JSDoc for all public members. Inline comments must explain **why**, not what.
-
-**✅ Good**
-
-```ts
-/** Emits an event to all listeners. */
-public async emit(event: string): Promise<void> {
-  await this.action.emit(event);
-}
-```
-
-**❌ Bad**
-
-```ts
-// emit event
-public async emit(e) { }
-```
-
-## 6. Errors, Runtime, and Testing
-
-The following explains how to handle errors, follow runtime conventions, and test code. Clear error handling and strict runtime conventions reduce production bugs. Testing ensures that APIs remain stable over time.
-
-### 6.1. Errors and Results
-
-Throw `Error` (or subclasses) with meaningful messages. Never swallow errors silently. Always return typed results.
-
-**✅ Good**
-
-```ts
-if (!supported) {
-  throw new Error(`Unsupported method: ${method}`);
-}
-```
-
-**❌ Bad**
-
-```ts
-try { doThing(); } catch { return {}; }
-```
-
-### 6.2. Runtime and Testing
-
-Runtime must be strict ESM. Tests must be black-box where possible, with filenames ending in `.test.ts`.
-
- - Local imports must use `.js` suffix.  
- - Separate `import type` from runtime imports.  
- - Test files import public APIs, not internals.  
- - Async code must be tested with `await`.
-
-## 7. Conclusion
-
-This style guide ensures Stackpress code is consistent, maintainable, and predictable. By following the rules for formatting, types, classes, delegation, naming, and errors, developers can focus on building features rather than fixing style issues.
+ - **MUST** use '.js' suffix for local imports.
+ - **MUST** separate type and runtime imports.
+ - **MUST** test async code with 'await'.
+ - **SHOULD** use black-box testing for public APIs.
